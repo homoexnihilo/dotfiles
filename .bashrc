@@ -122,5 +122,9 @@ else
 	unset ALL_PROXY
 fi
 
-export PATH=~/bin/squashfs-root/usr/bin:$PATH
+# alias for .cfg git repo
 alias config='/usr/bin/git --git-dir=/home/alexander/.cfg/ --work-tree=/home/alexander'
+
+# exports
+export PATH=~/bin/squashfs-root/usr/bin:$PATH
+export PATH=$HOME/bin/dev-scripts:$PATH
