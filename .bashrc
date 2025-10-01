@@ -112,15 +112,15 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-
-#old! export ALL_PROXY=socks5h://127.0.0.1:1080
-# only enable proxy socks proxy in work dir
-if [[ "$PWD" == /dev/eid/* ]]; then
-	export ALL_PROXY=socks5h://127.0.0.1:1080
-else
-	unset ALL_PROXY
-fi
+# set the ALL_PROXY when navigating to specific directories
+update_proxy() {
+    if [[ "$PWD" == /home/$USER/dev/eid || "$PWD" == /home/$USER/dev/eid/* ]]; then
+        export ALL_PROXY=socks5h://127.0.0.1:1080
+    else
+        unset ALL_PROXY
+    fi
+}
+PROMPT_COMMAND=update_proxy # commands in PROMPT_COMMAND gets run every time bash displays a prompt for a new command.
 
 # alias for .cfg git repo
 alias config='/usr/bin/git --git-dir=/home/alexander/.cfg/ --work-tree=/home/alexander'
@@ -128,3 +128,19 @@ alias config='/usr/bin/git --git-dir=/home/alexander/.cfg/ --work-tree=/home/ale
 # exports
 export PATH=~/bin/squashfs-root/usr/bin:$PATH
 export PATH=$HOME/bin/dev-scripts:$PATH
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Show current git branch in prompt
+parse_git_branch() {
+  git branch 2>/dev/null | sed -n '/\* /s///p'
+}
+
+PS1='\[\e[32m\]\u@\h \[\e[33m\]\w \[\e[36m\]($(parse_git_branch))\[\e[0m\]\$ '
+
+
+
+
+
