@@ -86,6 +86,15 @@ vim.o.confirm = true
 vim.keymap.set("i", "jj", "<Esc>")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+-- #### Custom vim options
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
+vim.o.expandtab = true
+-- #### Custom node path stuff (cred: https://jaketrent.com/post/set-node-version-nvim)
+local home_dir = "/home/alexander/"
+local node_bin = "/.nvm/versions/node/v24.5.0/bin" -- #### TO EDIT NODE VERSION, EDIT THE VERSION IN THIS PATH!
+vim.g.node_host_prog = home_dir .. node_bin .. "/node"
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -609,9 +618,9 @@ require("lazy").setup({
 				--    https://github.com/pmizio/typescript-tools.nvim
 				--
 				-- But for many setups, the LSP (`ts_ls`) will work just fine
-				-- ts_ls = {},
-				--
-
+				--ts_ls = {},
+				--jdtls = {},
+				vtsls = {},
 				lua_ls = {
 					-- cmd = { ... },
 					-- filetypes = { ... },
